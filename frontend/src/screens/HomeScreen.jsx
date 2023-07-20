@@ -1,12 +1,8 @@
 import Product from "../components/Product";
 import { Col, Row } from "react-bootstrap";
-import PropTypes from "prop-types";
+import products from "../products";
 
-HomeScreen.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.object),
-};
-
-export default function HomeScreen({ products }) {
+export default function HomeScreen() {
   return (
     <>
       <h1>Latest Products</h1>
