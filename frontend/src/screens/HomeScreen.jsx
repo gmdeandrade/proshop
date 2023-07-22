@@ -1,8 +1,10 @@
 import Product from "../components/Product";
 import { Col, Row } from "react-bootstrap";
-import products from "../products";
+import useProducts from "../hooks/useProducts";
 
 export default function HomeScreen() {
+  const products = useProducts();
+
   return (
     <>
       <h1>Latest Products</h1>
