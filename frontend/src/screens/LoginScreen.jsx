@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import Loader from "../components/Loader";
 import { useLoginMutation } from "../slices/usersApiSlice";
-import { setCredentials } from "../slices/loginSlice";
+import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
 export default function LoginScreen() {
@@ -16,7 +16,7 @@ export default function LoginScreen() {
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
-  const { userInfo } = useSelector((state) => state.login);
+  const { userInfo } = useSelector((state) => state.auth);
 
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
