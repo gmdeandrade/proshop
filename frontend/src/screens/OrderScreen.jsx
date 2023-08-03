@@ -4,10 +4,12 @@ import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClientIdQuery,
+  useDeliverOrderMutation,
 } from "../slices/ordersApiSlice";
+import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { Col, Image, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
 
@@ -21,7 +23,11 @@ export default function OrderScreen() {
   } = useGetOrderDetailsQuery(orderId);
 
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
+
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  const { userInfo } = useSelector((state) => state.auth);
 
   const {
     data: paypal,
@@ -48,6 +54,16 @@ export default function OrderScreen() {
       }
     }
   }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
+
+  const deliverHandler = async () => {
+    try {
+      await deliverOrder(orderId);
+      refetch();
+      toast.success("Order delivered");
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
+    }
+  };
 
   function onApprove(data, actions) {
     return actions.order.capture().then(async (details) => {
@@ -198,8 +214,14 @@ export default function OrderScreen() {
                 )}
               </ListGroup.Item>
             )}
-
-            {/* MARK AS DELIVERED PLACEHOLDER */}
+            {loadingDeliver && <Loader />}
+            {userInfo?.isAdmin && order.isPaid && !order.isDelivered && (
+              <ListGroup.Item>
+                <Button className="btn btn-block" onClick={deliverHandler}>
+                  Mark as Delivered
+                </Button>
+              </ListGroup.Item>
+            )}
           </ListGroup>
         </Col>
       </Row>
