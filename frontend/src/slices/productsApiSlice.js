@@ -6,6 +6,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     getProducts: builder.query({
       query: () => PRODUCTS_URL,
       keepUnusedDataFor: 5,
+      providesTags: ["Products"],
     }),
     getProduct: builder.query({
       query: (id) => `${PRODUCTS_URL}/${id}`,
@@ -18,6 +19,14 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Product"],
     }),
+    updateProduct: builder.mutation({
+      query: (data) => ({
+        url: `${PRODUCTS_URL}/${data._id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
@@ -25,5 +34,6 @@ export const {
   useGetProductsQuery,
   useGetProductQuery,
   useCreateProductMutation,
+  useUpdateProductMutation,
 } = productsApiSlice;
 // Export hooks for usage in functional components
