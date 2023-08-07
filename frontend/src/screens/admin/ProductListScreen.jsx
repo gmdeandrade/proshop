@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import {
   useGetProductsQuery,
   useCreateProductMutation,
+  useDeleteProductMutation,
 } from "../../slices/productsApiSlice";
 
 export default function ProductListScreen() {
@@ -16,13 +17,28 @@ export default function ProductListScreen() {
     isLoading: loadingProducts,
     error: errorProducts,
   } = useGetProductsQuery();
+
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
+
+  const [deleteProduct, { isLoading: loadingDelete }] =
+    useDeleteProductMutation();
 
   const createProductHandler = async () => {
     if (window.confirm("Are you sure you want to create a new product?")) {
       try {
         await createProduct();
+        refetch();
+      } catch (error) {
+        toast.error(error?.data?.message || error.error);
+      }
+    }
+  };
+
+  const deleteProductHandler = async (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await deleteProduct(id);
         refetch();
       } catch (error) {
         toast.error(error?.data?.message || error.error);
@@ -77,7 +93,11 @@ export default function ProductListScreen() {
                     </Button>
                   </LinkContainer>
 
-                  <Button variant="danger" className="btn-sm">
+                  <Button
+                    variant="danger"
+                    className="btn-sm"
+                    onClick={() => deleteProductHandler(product._id)}
+                  >
                     <FaTrash style={{ color: "white" }} />
                   </Button>
                 </td>
@@ -88,6 +108,12 @@ export default function ProductListScreen() {
       )}
 
       {loadingCreate && (
+        <Row className="align-items-center">
+          <Loader />
+        </Row>
+      )}
+
+      {loadingDelete && (
         <Row className="align-items-center">
           <Loader />
         </Row>
