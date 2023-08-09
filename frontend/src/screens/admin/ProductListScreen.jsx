@@ -60,6 +60,8 @@ export default function ProductListScreen() {
         </Col>
       </Row>
 
+      {loadingDelete && <Loader />}
+      {loadingCreate && <Loader />}
       {loadingProducts ? (
         <Loader />
       ) : errorProducts ? (
@@ -105,18 +107,6 @@ export default function ProductListScreen() {
             ))}
           </tbody>
         </Table>
-      )}
-
-      {loadingCreate && (
-        <Row className="align-items-center">
-          <Loader />
-        </Row>
-      )}
-
-      {loadingDelete && (
-        <Row className="align-items-center">
-          <Loader />
-        </Row>
       )}
     </>
   );
