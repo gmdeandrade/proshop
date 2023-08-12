@@ -94,7 +94,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
  * @access  Private
  */
 const createProductReview = asyncHandler(async (req, res) => {
-  const { rating, comment } = req.body;
+  const { rating, comment } = req.body.review;
   const product = await Product.findById(req.params.id);
 
   if (product === null) {
@@ -111,18 +111,18 @@ const createProductReview = asyncHandler(async (req, res) => {
     throw new Error("Product already reviewed");
   }
 
-  const review = {
+  const newReview = {
     user: req.user._id,
     name: req.user.name,
     rating: Number(rating),
     comment,
   };
 
-  product.reviews.push(review);
+  product.reviews.push(newReview);
   product.numReviews = product.reviews.length;
 
   product.rating =
-    product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    product.reviews.reduce((acc, review) => review.rating + acc, 0) /
     product.reviews.length;
 
   await product.save();
