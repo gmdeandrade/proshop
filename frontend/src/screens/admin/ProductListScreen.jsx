@@ -1,8 +1,10 @@
 import { LinkContainer } from "react-router-bootstrap";
+import { useParams } from "react-router-dom";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import Paginate from "../../components/Paginate";
 import { toast } from "react-toastify";
 import {
   useGetProductsQuery,
@@ -11,12 +13,13 @@ import {
 } from "../../slices/productsApiSlice";
 
 export default function ProductListScreen() {
+  const { pageNumber } = useParams();
   const {
-    data: products,
+    data,
     refetch,
     isLoading: loadingProducts,
     error: errorProducts,
-  } = useGetProductsQuery();
+  } = useGetProductsQuery({ pageNumber });
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
@@ -66,7 +69,7 @@ export default function ProductListScreen() {
         <Loader />
       ) : errorProducts ? (
         <Message variant="danger">{errorProducts}</Message>
-      ) : products.length === 0 ? (
+      ) : data.products.length === 0 ? (
         <Message variant="info">No products found</Message>
       ) : (
         <Table striped hover responsive className="table-sm">
@@ -81,7 +84,7 @@ export default function ProductListScreen() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {data.products.map((product) => (
               <tr key={product._id}>
                 <td>{product._id}</td>
                 <td>{product.name}</td>
@@ -108,6 +111,8 @@ export default function ProductListScreen() {
           </tbody>
         </Table>
       )}
+
+      <Paginate pages={data?.pages} page={data?.page} isAdmin={true} />
     </>
   );
 }
