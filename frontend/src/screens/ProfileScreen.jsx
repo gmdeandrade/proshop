@@ -69,7 +69,7 @@ export default function ProfileScreen() {
           </Form.Group>
 
           <Form.Group controlId="email" className="my-2">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>E-mail</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter email"
@@ -89,7 +89,7 @@ export default function ProfileScreen() {
           </Form.Group>
 
           <Form.Group controlId="confirmPassword" className="my-2">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
               placeholder="Confirm password"
