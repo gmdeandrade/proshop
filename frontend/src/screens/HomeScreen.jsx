@@ -1,7 +1,7 @@
 import Product from "../components/Product";
 import { Col, Row } from "react-bootstrap";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
@@ -14,6 +14,12 @@ export default function HomeScreen() {
   });
   return (
     <>
+      {keyword && (
+        <Link to="/" className="btn btn-light mb-4">
+          {" "}
+          Go Back
+        </Link>
+      )}
       {error ? (
         <Message variant="danger">{error.message}</Message>
       ) : isLoading ? (
