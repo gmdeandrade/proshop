@@ -8,6 +8,7 @@ import {
   useDeleteUserMutation,
 } from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
+import Meta from "../../components/Meta";
 
 export default function UserListScreen() {
   const {
@@ -31,6 +32,7 @@ export default function UserListScreen() {
 
   return (
     <>
+      <Meta title="User list" />
       <h1>Users</h1>
       {loadingDelete && <Loader />}
       {loadingUsers ? (

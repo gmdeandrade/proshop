@@ -8,6 +8,7 @@ import { clearCartItems } from "../slices/cartSlice";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import Meta from "../components/Meta";
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
@@ -43,6 +44,7 @@ export default function PlaceOrderScreen() {
 
   return (
     <>
+      <Meta title="Place order" />
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>

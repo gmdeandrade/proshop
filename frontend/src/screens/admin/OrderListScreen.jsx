@@ -4,12 +4,14 @@ import { FaTimes } from "react-icons/fa";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import { useGetOrdersQuery } from "../../slices/ordersApiSlice";
+import Meta from "../../components/Meta";
 
 export default function OrderListScreen() {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
 
   return (
     <>
+      <Meta title="Order list" />
       <h1>Orders</h1>
       {isLoading ? (
         <Loader />

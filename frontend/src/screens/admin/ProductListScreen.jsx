@@ -11,6 +11,7 @@ import {
   useCreateProductMutation,
   useDeleteProductMutation,
 } from "../../slices/productsApiSlice";
+import Meta from "../../components/Meta";
 
 export default function ProductListScreen() {
   const { pageNumber } = useParams();
@@ -51,6 +52,7 @@ export default function ProductListScreen() {
 
   return (
     <>
+      <Meta title="Product list" />
       <Row className="align-items-center">
         <Col>
           <h1>Products</h1>

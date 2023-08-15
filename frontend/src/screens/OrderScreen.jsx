@@ -12,6 +12,7 @@ import Message from "../components/Message";
 import { Button, Col, Image, ListGroup, Row } from "react-bootstrap";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { toast } from "react-toastify";
+import Meta from "../components/Meta";
 
 export default function OrderScreen() {
   const { id: orderId } = useParams();
@@ -101,6 +102,7 @@ export default function OrderScreen() {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
+      <Meta title="Detailed Order" />
       <h1>Order</h1>
       <Row>
         <Col md={8}>

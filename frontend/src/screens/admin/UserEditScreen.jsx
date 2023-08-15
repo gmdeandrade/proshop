@@ -9,6 +9,7 @@ import {
   useGetUserDetailsQuery,
   useUpdateUserMutation,
 } from "../../slices/usersApiSlice";
+import Meta from "../../components/Meta";
 
 export default function UserEditScreen() {
   const { id: userId } = useParams();
@@ -49,6 +50,7 @@ export default function UserEditScreen() {
 
   return (
     <>
+      <Meta title="Edit user" />
       <Link to="/admin/userlist" className="btn btn-light my-3">
         Go Back
       </Link>
