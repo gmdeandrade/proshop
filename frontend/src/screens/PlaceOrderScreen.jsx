@@ -140,7 +140,7 @@ export default function PlaceOrderScreen() {
 
               {error && (
                 <ListGroup.Item>
-                  {error && <Message>error.message</Message>}
+                  <Message>{error?.data?.message || error.error}</Message>
                 </ListGroup.Item>
               )}
 

@@ -99,7 +99,9 @@ export default function ProductEditScreen() {
         {loadingProduct ? (
           <Loader />
         ) : errorProduct ? (
-          <Message variant="danger">{errorProduct}</Message>
+          <Message variant="danger">
+            {errorProduct?.data?.message || errorProduct.error}
+          </Message>
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name" className="my-2">

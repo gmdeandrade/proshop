@@ -42,6 +42,9 @@ const cartSlice = createSlice({
       state.cartItems = [];
       return updateCart(state);
     },
+
+    // eslint-disable-next-line no-unused-vars
+    resetCart: (state) => (state = initialState),
   },
 });
 
@@ -51,5 +54,6 @@ export const {
   saveShippingAddress,
   savePaymentMethod,
   clearCartItems,
+  resetCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

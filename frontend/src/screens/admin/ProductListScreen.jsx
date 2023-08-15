@@ -70,7 +70,9 @@ export default function ProductListScreen() {
       {loadingProducts ? (
         <Loader />
       ) : errorProducts ? (
-        <Message variant="danger">{errorProducts}</Message>
+        <Message variant="danger">
+          {errorProducts?.data?.message || errorProducts.error}
+        </Message>
       ) : data.products.length === 0 ? (
         <Message variant="info">No products found</Message>
       ) : (
